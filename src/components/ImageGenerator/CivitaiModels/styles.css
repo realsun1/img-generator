@@ -471,7 +471,6 @@
     border: 1px solid #e0e0e0; /* Light border for a polished edge */
     max-width: 1200px; /* Set a max width for responsiveness */
     margin: 0 auto; /* Center the container horizontally */
-    margin-right: 200px;
 }
 
 .lora-count {
@@ -489,9 +488,9 @@
     cursor: pointer;
     font-size: 18px;
     transition: background-color 0.3s, transform 0.3s;
-    margin-left: 570px;
     border-radius: 8px; /* Rounded corners for a modern look */
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    margin-left: 570px;
 }
 
 /* Hover state for Add Lora button */
@@ -554,6 +553,51 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+/* Media Queries for Responsive Design */
+@media (max-width: 768px) {
+    .lora-count-container {
+        flex-direction: column; /* Stack items vertically on small screens */
+        align-items: flex-start; /* Align items to the start */
+        margin-right: 0; /* Remove right margin */
+        padding: 20px; /* Add padding */
+    }
+
+    .add-lora-button {
+        margin-left: 0; /* Remove left margin */
+        margin-top: 10px; /* Add top margin */
+        width: 100%; /* Full width button */
+    }
+
+    .selected-models-container {
+        width: 100%;
+        margin-right: 0; /* Remove right margin */
+    }
+}
+
+@media (max-width: 480px) {
+    .lora-count {
+        font-size: 24px; /* Smaller text size */
+    }
+
+    .add-lora-button {
+        font-size: 16px; /* Smaller button text */
+        padding: 10px 15px; /* Adjust padding */
+    }
+
+    .select-button {
+        font-size: 14px; /* Smaller button text */
+        padding: 5px 15px; /* Adjust padding */
+    }
+
+    .selected-model-item {
+        padding: 10px 5px; /* Adjust padding */
+    }
+
+    .selected-model-title {
+        font-size: 14px; /* Smaller title text */
+    }
 }
 
 /* Remove button */
@@ -747,6 +791,26 @@
     font-style: italic;
     color: #777;
     margin-top: 10px;
-    margin-left: 5px;
-    margin-right: 200px;
+    text-align: center; /* Center-align the text */
+    margin-right: auto;
+    margin-left: 200px;
 }
+
+/* Media Queries for Responsive Design */
+@media (max-width: 768px) {
+    .no-selection {
+        text-align: center; /* Ensure text is centered on smaller screens */
+        margin-left: auto; /* Center the element */
+        margin-right: auto; /* Center the element */
+    }
+}
+
+@media (max-width: 480px) {
+    .no-selection {
+        font-size: 14px; /* Adjust font size for smaller screens */
+        text-align: center; /* Ensure text is centered on smaller screens */
+        margin-left: auto; /* Center the element */
+        margin-right: auto; /* Center the element */
+    }
+}
+

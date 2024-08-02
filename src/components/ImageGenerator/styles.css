@@ -15,6 +15,7 @@ body, html {
     height: 100%;
     padding: 20px;
     box-sizing: border-box;
+    overflow: hidden; /* Prevent overflow issues */
 }
 
 .content {
@@ -27,7 +28,7 @@ body, html {
     background: #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
-    margin-right: 200px;
+    margin-right: 0; /* Remove right margin on smaller screens */
 }
 
 .generator {
@@ -35,6 +36,8 @@ body, html {
     flex-direction: column; /* Stack items vertically */
     align-items: center; /* Center items horizontally */
     margin: 20px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .generator textarea {
@@ -85,7 +88,6 @@ body, html {
 .inject-button:hover {
     background-color: #0056b3; /* Darker blue for hover effect */
 }
-
 
 .queue {
     width: 100%;
@@ -289,7 +291,7 @@ body, html {
     }
 
     .queue {
-        position: relative;
+        position: static;
         width: 100%;
         max-width: none;
         height: auto;
