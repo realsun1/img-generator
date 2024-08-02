@@ -526,7 +526,7 @@
     align-items: flex-start;
     overflow: hidden; /* Hide overflow */
     max-height: 100%; /* Ensure container doesn’t exceed its parent */
-    width: 52%;
+    width: 60%;
     margin-right: 200px;
 }
 

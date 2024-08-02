@@ -43,8 +43,6 @@ useEffect(() => {
     fetchFiles();
 }, []);
 
-
-
     let presetLoras = [
         {
             "name": "298005",
