@@ -471,6 +471,7 @@
     border: 1px solid #e0e0e0; /* Light border for a polished edge */
     max-width: 1200px; /* Set a max width for responsiveness */
     margin: 0 auto; /* Center the container horizontally */
+    margin-right: 200px;
 }
 
 .lora-count {
@@ -525,7 +526,8 @@
     align-items: flex-start;
     overflow: hidden; /* Hide overflow */
     max-height: 100%; /* Ensure container doesn’t exceed its parent */
-    width: 51%;
+    width: 52%;
+    margin-right: 200px;
 }
 
 /* Container for individual selected model items */
