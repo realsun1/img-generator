@@ -26,12 +26,12 @@ const ImageGenerator = ({ loras }) => {
 useEffect(() => {
     const fetchFiles = async () => {
         try {
-            const characterResponse = await fetch('/src/components/data/anime_characters.txt');
+            const characterResponse = await fetch('/anime_characters.txt');
             const characterText = await characterResponse.text();
             // Use the whole line for characters
             setCharacters(characterText.split('\n').filter(line => line.trim() !== ''));
 
-            const tagResponse = await fetch('/src/components/data/tags.txt');
+            const tagResponse = await fetch('/tags.txt');
             const tagText = await tagResponse.text();
             // Extract the first word from each line for tags
             setTags(tagText.split('\n').map(line => line.split(/\s+/)[0]).filter(word => word));
