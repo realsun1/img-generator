@@ -1,0 +1,749 @@
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+
+/* Container for character models */
+.models-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Container for the toggle buttons and search input */
+.header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+/* Container for toggle buttons and other controls */
+.toggle-buttons-container {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between buttons */
+    margin-top: 10px; /* Space from the Lora count */
+}
+
+/* Style for individual toggle buttons */
+.toggle-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+/* Hover state for toggle buttons */
+.toggle-button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+/* Modal overlay to cover the entire screen */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.3s;
+}
+
+/* Content area of the modal */
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 80%;
+    height: 80%;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    animation: slideUp 0.3s;
+}
+
+/* Fade-in animation for modal */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Slide-up animation for modal */
+@keyframes slideUp {
+    from { transform: translateY(50px); }
+    to { transform: translateY(0); }
+}
+
+/* Close button inside modal */
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #333;
+    transition: color 0.3s;
+}
+
+/* Hover state for close button */
+.close-button:hover {
+    color: #000;
+}
+
+/* Search input style */
+.search-input {
+    width: calc(100% - 40px);
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* NSFW switch container */
+.nsfw-switch {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+    font-size: 16px;
+    background-color: #f5f5f5;
+    padding: 5px 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s, transform 0.3s;
+    position: relative;
+    width: 200px; /* Fixed width to control size */
+}
+
+/* Hover state for NSFW switch */
+.nsfw-switch:hover {
+    background-color: #e0e0e0;
+    transform: scale(1.05);
+}
+
+/* NSFW switch input style */
+.nsfw-switch input {
+    margin-right: 10px;
+}
+
+/* NSFW switch label style */
+.nsfw-switch-label {
+    flex: 1;
+}
+
+/* Tabs container */
+.tabs {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+/* Individual tab style */
+.tab {
+    padding: 10px 20px;
+    background-color: #f0f0f0;
+    color: #333;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+/* Active tab style */
+.tab.active {
+    background-color: #007bff;
+    color: white;
+}
+
+/* Hover state for tabs */
+.tab:hover {
+    background-color: #0056b3;
+    color: white;
+    transform: scale(1.05);
+}
+
+/* Container for model list */
+.model-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Center items horizontally */
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px; /* Increased padding for a cleaner look */
+    scrollbar-width: thin;
+    scrollbar-color: #ffb3b3 #f0f0f0; /* Anime-inspired pastel colors */
+}
+
+/* Scrollbar styles for WebKit browsers */
+.model-list::-webkit-scrollbar {
+    width: 10px; /* Slightly wider scrollbar */
+}
+
+.model-list::-webkit-scrollbar-track {
+    background: #f0f0f0;
+}
+
+.model-list::-webkit-scrollbar-thumb {
+    background-color: #ffb3b3; /* Soft pink for the thumb */
+    border-radius: 10px;
+}
+
+/* Style for individual model items */
+.model-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 15px; /* Increased margin for spacing */
+    width: 190px; /* Slightly wider cards */
+    padding: 15px; /* Increased padding for a more spacious look */
+    background-color: #ffffff; /* Clean white background */
+    border-radius: 15px; /* Rounded corners for a softer appearance */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Enhanced shadow for depth */
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    overflow: hidden; /* Ensures content does not overflow the container */
+    height: 450px;
+}
+
+/* Hover state for model items */
+.model-item:hover {
+    transform: translateY(-10px); /* More pronounced hover effect */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Deeper shadow on hover */
+    background-color: #f9f9f9; /* Slightly darker background on hover */
+}
+
+/* Style for model images */
+.model-image {
+    width: 100%;
+    height: 180px; /* Adjusted height for better aspect ratio */
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px; /* Rounded corners for images */
+    overflow: hidden;
+}
+
+/* Image inside model */
+.model-image-img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover; /* Ensure images cover the area without distortion */
+}
+
+/* Style for no image placeholder */
+.no-image {
+    width: 100%;
+    height: 180px; /* Adjusted height */
+    background-color: #e0e0e0; /* Light grey for placeholder */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #666;
+    border-radius: 10px;
+    font-size: 14px; /* Smaller font size for placeholder text */
+}
+
+/* Model title style */
+.model-title {
+    text-align: center;
+    font-size: 12px; /* Slightly smaller font size */
+    font-weight: bold;
+    width: 100%; /* Ensure full width */
+    white-space: normal; /* Allow text to wrap */
+    overflow: hidden; /* Hide overflow text */
+    text-overflow: ellipsis; /* Add ellipsis for overflow text */
+    word-wrap: break-word; /* Break long words if necessary */
+}
+
+/* Style for the version selector */
+.model-versions {
+    margin-top: 10px; /* Space between title and selector */
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.version-select {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 8px 10px;
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    width: 100%;
+    max-width: 180px; /* Adjust max-width for a more compact look */
+}
+
+.version-select:focus,
+.version-select:hover {
+    border-color: #ffb3b3; /* Match the scrollbar thumb color */
+    box-shadow: 0 0 5px rgba(255, 179, 179, 0.5);
+}
+
+.version-select::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    width: 0; 
+    height: 0; 
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid #333; /* Arrow pointing down */
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+/* Button styles */
+.select-button {
+    margin-top: 10px;
+    padding: 8px 16px;
+    background-color: #ffb3b3; /* Soft pink background */
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.select-button:hover {
+    background-color: #ff9a9a; /* Darker pink on hover */
+    transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+
+/* Style for the model-versions container */
+.model-versions {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+    gap: 10px; /* Add gap between the label and the select */
+    position: relative; /* Make the container relative to position the custom arrow */
+}
+
+/* Style for the strong element */
+.model-versions strong {
+    font-weight: bold;
+    color: #333;
+}
+
+/* Style for the select element */
+.version-select {
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 5px 5px 5px 5px; /* Add padding to make room for the custom arrow */
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    width: 100%;
+    max-width: 200px; /* Adjust this value as needed */
+    position: relative; /* Make the select position relative to place the arrow */
+}
+
+/* Add focus and hover effects */
+.version-select:focus,
+.version-select:hover {
+    border-color: #888;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Add custom arrow for the select */
+.version-select::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    width: 0; 
+    height: 0; 
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid #333; /* Arrow pointing down */
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+/* Add a different arrow for hover/focus */
+.version-select:focus::after,
+.version-select:hover::after {
+    border-top-color: #888; /* Change color on focus/hover */
+}
+
+/* Optional: Add a custom arrow for the select when the dropdown is open */
+.version-select option {
+    padding: 8px;
+}
+
+
+/* Container for load more button */
+.load-more-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+
+/* Style for load more button */
+.load-more-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 150px;
+}
+
+/* Hover state for load more button */
+.load-more-button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+/* Small loader animation */
+.loader-small {
+    border: 4px solid rgba(0,0,0,0.1);
+    border-left: 4px solid #007bff;
+    border-radius: 50%;
+    width: 8px;
+    height: 8px;
+    animation: spin 1s linear infinite;
+}
+
+/* Large loader animation */
+.loader {
+    border: 4px solid rgba(0,0,0,0.1);
+    border-left: 4px solid #007bff;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    animation: spin 1s linear infinite;
+}
+
+/* Spin animation for loaders */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Style for error messages */
+.error {
+    color: red;
+    font-size: 16px;
+    text-align: center;
+    margin-top: 10px;
+}
+
+/* Container for Lora count and button */
+.lora-count-container {
+    display: flex;
+    align-items: center; /* Center align items vertically */
+    justify-content: space-between; /* Push items to the ends */
+    margin-bottom: 20px;
+    padding: 10px 20px; /* Adjust padding for a balanced look */
+    background: #f5f5f5; /* Light grey background for a clean look */
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    border: 1px solid #e0e0e0; /* Light border for a polished edge */
+    max-width: 1200px; /* Set a max width for responsiveness */
+    margin: 0 auto; /* Center the container horizontally */
+}
+
+.lora-count {
+    font-size: 36px; /* Large text size */
+    font-weight: bold;
+    color: #707070;
+    font-family: 'Roboto', sans-serif; /* Clean, modern font */
+}
+
+.add-lora-button {
+    padding: 10px 20px; /* Adjust padding for better button size */
+    background-color: #0b8a27; /* Primary blue color */
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s, transform 0.3s;
+    margin-left: 570px;
+    border-radius: 8px; /* Rounded corners for a modern look */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+}
+
+/* Hover state for Add Lora button */
+.add-lora-button:hover {
+    background-color: #1b764a; /* Darker green on hover */
+    transform: scale(1.05); /* Slightly larger on hover */
+}
+
+/* Style for select button */
+.select-button {
+    padding: 3px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.3s;
+    margin-top: auto;
+}
+
+/* Hover state for select button */
+.select-button:hover {
+    background-color: #218838;
+    transform: scale(1.05);
+}
+
+/* Container for selected models */
+.selected-models-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    overflow: hidden; /* Hide overflow */
+    max-height: 100%; /* Ensure container doesn’t exceed its parent */
+    width: 51%;
+}
+
+/* Container for individual selected model items */
+.selected-model-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px;
+    margin: 10px 0;
+    width: 100%;
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    position: relative;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+/* Title and version of the selected model */
+.selected-model-title {
+    font-weight: bold;
+    margin-bottom: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Remove button */
+.remove-button {
+    margin-top: 10px;
+    background-color: #ff4d4d;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    align-self: flex-start;
+}
+
+/* Hover state for remove button */
+.remove-button:hover {
+    background-color: #c82333;
+    transform: scale(1.05);
+}
+
+/* Container for slider and label */
+.slider-container {
+    position: relative;
+    width: 90%; /* Adjust width as needed */
+    margin: 20px 0; /* Add margin to separate from other elements */
+}
+
+/* Style for sliders */
+.slider {
+    -webkit-appearance: none;
+    width: 100%; /* Ensure the slider uses the full width of its container */
+    height: 8px;
+    background: #ddd;
+    border-radius: 5px;
+    outline: none;
+    opacity: 0.7;
+    transition: opacity .2s;
+    box-sizing: border-box; /* Include padding and border in width and height */
+}
+
+/* Slider hover effect */
+.slider:hover {
+    opacity: 1;
+}
+
+/* WebKit slider thumb */
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #007bff;
+    border-radius: 50%;
+    cursor: pointer;
+    position: relative;
+}
+
+/* Mozilla slider thumb */
+.slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: #007bff;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+/* Slider label */
+.slider-label {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: #333;
+}
+
+/* Slider input */
+.slider {
+    margin-left: 10px;
+    margin-right: 10px;
+    flex-grow: 1;
+}
+
+/* Slider value input */
+.slider-value-input {
+    width: 50px;
+    margin-left: 10px;
+    font-size: 14px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+/* Container for trained words */
+.trained-words-container {
+    max-height: 150px; /* Adjust as needed */
+    overflow-y: auto; /* Enable vertical scrolling */
+    margin-top: 10px; /* Space above the container */
+    padding: 5px; /* Padding inside the container */
+    border: 1px solid #ddd; /* Border for better visibility */
+    border-radius: 5px; /* Rounded corners */
+    background-color: #f9f9f9; /* Background color */
+}
+
+/* List of trained words */
+.trained-words-list {
+    display: flex;
+    flex-wrap: wrap; /* Allow items to wrap onto new lines */
+    gap: 5px; /* Space between blocks */
+    margin-top: 5px;
+}
+
+/* Block of trained words */
+.trained-words-block {
+    background-color: #e0e0e0; /* Block background color */
+    padding: 5px 8px; /* Padding inside blocks */
+    border-radius: 3px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    display: inline-block;
+    max-width: 100%; /* Ensure it fits within the container */
+    box-sizing: border-box; /* Include padding and border in width */
+    word-wrap: break-word; /* Wrap long words onto new lines */
+    white-space: normal; /* Allow text to wrap to new lines */
+}
+
+/* Text within trained words block */
+.trained-words-text {
+    overflow: visible; /* Ensure text is visible */
+    word-wrap: break-word; /* Allow long words to wrap */
+    white-space: normal; /* Allow text to wrap onto new lines */
+}
+
+
+/* Tooltip for copy to clipboard */
+.copy-tooltip {
+    display: none;
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: #fff;
+    padding: 5px;
+    border-radius: 3px;
+    font-size: 12px;
+    white-space: nowrap;
+    z-index: 1000;
+}
+
+/* Show tooltip on hover */
+.trained-words-block:hover .copy-tooltip {
+    display: block;
+}
+
+/* Notification for copy to clipboard */
+.copy-tooltip-notification {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    z-index: 1000;
+    opacity: 0;
+    animation: fadeIn 0.5s forwards, fadeOut 0.5s 1.5s forwards;
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Fade-out animation */
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+/* No models selected */
+.no-selection {
+    font-style: italic;
+    color: #777;
+    margin-top: 10px;
+    margin-left: 5px;
+}

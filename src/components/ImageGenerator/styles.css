@@ -1,0 +1,353 @@
+/* Font Awesome for the icon */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
+
+body, html {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    height: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.content {
+    width: 100%;
+    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    margin-right: 0;
+}
+
+.generator {
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    align-items: center; /* Center items horizontally */
+    margin: 20px;
+}
+
+.generator textarea {
+    width: 100%;
+    padding: 15px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+.generator textarea:focus {
+    border-color: #4CAF50;
+    outline: none;
+}
+
+.button-container {
+    display: flex; /* Align buttons horizontally */
+    gap: 10px; /* Space between buttons */
+    margin-top: 10px; /* Space above the button container */
+}
+
+.generate-button, .inject-button {
+    padding: 12px 10px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.generate-button:hover, .inject-button:hover {
+    background-color: #45a049;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.inject-button {
+    background-color: #007BFF; /* Different color for inject buttons */
+}
+
+.inject-button:hover {
+    background-color: #0056b3; /* Darker blue for hover effect */
+}
+
+
+.queue {
+    width: 100%;
+    max-width: 300px;
+    background-color: #f0f0f0;
+    padding: 20px;
+    height: 100vh;
+    overflow-y: auto;
+    position: fixed;
+    right: 0;
+    top: 0;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+.queue h2 {
+    text-align: center;
+    margin-top: 0;
+}
+
+.queue-item {
+    position: relative;
+    margin-bottom: 15px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.queue-item img {
+    max-width: 100%;
+    border-radius: 8px;
+    margin-top: 10px;
+}
+
+.image-container {
+    position: relative;
+    display: inline-block;
+    /* Add spacing or alignment as needed */
+}
+
+.result-image {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    /* Add styling for the image */
+}
+
+.download-overlay {
+    position: absolute;
+    top: 10px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    border-radius: 5px; /* Rounded corners for a soft look */
+    visibility: hidden; /* Hide the overlay by default */
+}
+
+.download-button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+    font-size: 24px; /* Icon size */
+    transition: color 0.3s ease;
+    outline: none;
+}
+
+.download-button:hover {
+    color: #ffd700; /* Highlight color on hover */
+}
+
+.image-container:hover .download-overlay {
+    opacity: 1;
+    visibility: visible;
+}
+
+.button-container {
+    display: flex;
+    gap: 10px; /* Space between buttons */
+    margin-top: 20px; /* Space above the button container */
+    justify-content: center;
+}
+
+.clear-button, .download-all-button {
+    padding: 12px 16px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.clear-button {
+    background-color: #ff6347; /* Tomato color */
+    color: white;
+}
+
+.clear-button:hover {
+    background-color: #e5533d; /* Darker tomato color */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.clear-button:active {
+    background-color: #cc4b2c; /* Even darker tomato color */
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.download-all-button {
+    background-color: #007bff; /* Blue color similar to Bootstrap */
+    color: white;
+}
+
+.download-all-button:hover {
+    background-color: #0056b3; /* Darker blue for hover */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.download-all-button:active {
+    background-color: #004080; /* Even darker blue for active state */
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.download-all-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.placeholder {
+    text-align: center;
+    padding: 20px;
+    color: #aaa;
+    font-style: italic;
+}
+
+.cancel-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 24px;
+    height: 24px;
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s;
+}
+
+.cancel-button:hover {
+    background-color: #cc0000;
+}
+
+.clear-button-container {
+    position: absolute;
+    bottom: 20px;
+    width: calc(100% - 40px); /* Ensure it fits within the queue padding */
+    padding: 0 20px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.loader {
+    border: 4px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 4px solid #3498db;
+    width: 16px;
+    height: 16px;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Media Queries for Responsive Design */
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        align-items: center;
+        padding: 10px;
+        margin-right: 0;
+    }
+
+    .content {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .queue {
+        position: relative;
+        width: 100%;
+        max-width: none;
+        height: auto;
+        box-shadow: none;
+        padding: 10px;
+        margin-top: 20px;
+    }
+
+    .clear-button-container {
+        position: static;
+        width: 100%;
+        padding: 0;
+        margin-top: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .generate-button, .clear-button, .download-all-button {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+
+    .generator textarea {
+        font-size: 14px;
+        padding: 10px;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+}
+
+.notification {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    z-index: 1000;
+    animation: fadeIn 3s ease-in-out, fadeOut 3s ease-in-out forwards;
+}
