@@ -91,7 +91,7 @@ body, html {
 
 .queue {
     width: 100%;
-    max-width: 300px;
+    max-width: 250px;
     background-color: #f0f0f0;
     padding: 20px;
     height: 100vh;
