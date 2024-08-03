@@ -207,7 +207,7 @@
     flex-direction: column;
     align-items: center;
     margin: 15px; /* Increased margin for spacing */
-    width: 190px; /* Slightly wider cards */
+    width: 180px; /* Slightly wider cards */
     padding: 15px; /* Increased padding for a more spacious look */
     background-color: #ffffff; /* Clean white background */
     border-radius: 15px; /* Rounded corners for a softer appearance */
@@ -266,6 +266,10 @@
     overflow: hidden; /* Hide overflow text */
     text-overflow: ellipsis; /* Add ellipsis for overflow text */
     word-wrap: break-word; /* Break long words if necessary */
+}
+
+.model-title h2 {
+    color: black;
 }
 
 /* Style for the version selector */

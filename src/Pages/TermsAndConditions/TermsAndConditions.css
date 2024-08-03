@@ -1,0 +1,47 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+}
+
+.terms-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.terms-container p {
+    text-align: left; /* or right, or justify based on your design needs */
+}
+
+
+h1 {
+    font-size: 2em;
+    color: #343a40;
+    margin-bottom: 0.5em;
+}
+
+h2 {
+    font-size: 1.5em;
+    color: #007bff;
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+}
+
+p {
+    margin-bottom: 1em;
+    line-height: 1.6;
+}
+
+ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+li {
+    margin-bottom: 0.5em;
+}

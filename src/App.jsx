@@ -1,23 +1,14 @@
-import React, { useState } from 'react';
-import ImageGenerator from './components/ImageGenerator/ImageGenerator';
-import LoraFetcher from './components/ImageGenerator/CivitaiModels/LoraFetcher';
-
+import Footer from './components/Footer/Footer';
+import { Outlet } from 'react-router-dom';
 
 const App = () => {
-    const [selectedLoras, setSelectedLoras] = useState([]);
-
-    // Callback to update selected LoRAs from LoraFetcher
-    const handleLorasUpdate = (loras) => {
-        setSelectedLoras(loras);
-    };
-
     return (
-      <>
-      <ImageGenerator loras={selectedLoras} />
-      <LoraFetcher onLorasUpdate={handleLorasUpdate} />
-      </>
-            
-
+        <div className="App">
+          <main>
+            <Outlet />
+          </main>
+            <Footer />
+        </div>
     );
 };
 

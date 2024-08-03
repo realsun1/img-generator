@@ -1,0 +1,14 @@
+/* src/App.css */
+html, body {
+    margin: 0;
+    height: 100%;
+  }
+  
+  .App {
+    min-height: 100vh; /* Ensures the App component takes up at least the full viewport height */
+  }
+  
+  main {
+    flex: 1; /* Allows the main content to expand and fill the available space */
+  }
+  
