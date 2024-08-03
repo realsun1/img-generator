@@ -207,7 +207,7 @@
     flex-direction: column;
     align-items: center;
     margin: 15px; /* Increased margin for spacing */
-    width: 180px; /* Slightly wider cards */
+    width: 170px; /* Slightly wider cards */
     padding: 15px; /* Increased padding for a more spacious look */
     background-color: #ffffff; /* Clean white background */
     border-radius: 15px; /* Rounded corners for a softer appearance */
