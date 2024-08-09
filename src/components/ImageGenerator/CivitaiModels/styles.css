@@ -530,7 +530,7 @@
     align-items: flex-start;
     overflow: hidden; /* Hide overflow */
     max-height: 100%; /* Ensure container doesn’t exceed its parent */
-    width: 60%;
+    width: 58%;
 }
 
 /* Container for individual selected model items */
