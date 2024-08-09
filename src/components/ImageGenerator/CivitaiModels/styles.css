@@ -55,6 +55,7 @@
     justify-content: center;
     align-items: center;
     animation: fadeIn 0.3s;
+    z-index: 1000; /* Ensure this value is higher than other elements */
 }
 
 /* Content area of the modal */
@@ -529,7 +530,7 @@
     align-items: flex-start;
     overflow: hidden; /* Hide overflow */
     max-height: 100%; /* Ensure container doesn’t exceed its parent */
-    width: 52%;
+    width: 55%;
 }
 
 /* Container for individual selected model items */

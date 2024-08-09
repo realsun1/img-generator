@@ -99,19 +99,20 @@ body, html {
     background-color: #0056b3;
 }
 
+/* Queue container */
 .queue {
     width: 100%;
-    max-width: 250px;
-    background-color: #f0f0f0;
+    max-width: 300px;
     padding: 20px;
     height: 100vh;
     overflow-y: auto;
     position: fixed;
     right: 0;
     top: 0;
-    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+    box-shadow: -4px 0 15px rgba(0, 0, 0, 0.2); /* Enhanced shadow */
     display: flex;
     flex-direction: column;
+    z-index: 10; /* Ensure it's above other content */
 }
 
 /* Queue title */
@@ -119,33 +120,37 @@ body, html {
     text-align: center;
     margin-top: 0;
     color: #333;
-    font-size: 28px;
+    font-size: 32px;
     font-weight: bold;
     font-family: 'Noto Sans JP', sans-serif; /* Anime-inspired font */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Subtle shadow for better readability */
+    margin-bottom: 20px; /* Space between title and items */
 }
 
 /* Queue item styling */
 .queue-item {
     position: relative;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     padding: 15px;
-    border: 1px solid #e0e0e0;
-    border-radius: 15px; /* Rounded corners */
-    background-color: #ffffff;
-    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1); /* Enhanced shadow */
-    transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.queue-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    border: 2px solid #ff6f61; /* Accent border color */
+    border-radius: 20px; /* More rounded corners */
+    background: #ffffff;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2); /* Enhanced shadow */
+    transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
+    overflow: hidden;
+    animation: fadeIn 0.5s ease-out; /* Fade-in animation for items */
 }
 
 /* Queue item image */
 .queue-item img {
     max-width: 100%;
-    border-radius: 15px; /* Rounded corners */
+    border-radius: 20px; /* Rounded corners */
     margin-top: 10px;
+    transition: transform 0.4s ease-in-out;
+}
+
+.queue-item img:hover {
+    transform: scale(1.05); /* Slight zoom effect on hover */
 }
 
 /* Image container */
@@ -153,8 +158,21 @@ body, html {
     position: relative;
     display: inline-block;
     overflow: hidden;
-    border-radius: 15px; /* Rounded corners */
+    border-radius: 20px; /* Rounded corners */
 }
+
+/* Fade-in animation for queue items */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 
 /* Result image */
 .result-image {
@@ -167,10 +185,10 @@ body, html {
 /* Download overlay */
 .download-overlay {
     position: absolute;
-    top: 10px;
-    right: 10px;
-    bottom: 10px;
-    left: 10px;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -179,8 +197,16 @@ body, html {
     background: rgba(0, 0, 0, 0.6); /* Darker overlay for better contrast */
     border-radius: 15px; /* Rounded corners */
     visibility: hidden;
+    margin-top: 10px;
 }
 
+/* Show the overlay on hover */
+.image-container:hover .download-overlay {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Download button styles */
 .download-button {
     background: transparent;
     border: none;
