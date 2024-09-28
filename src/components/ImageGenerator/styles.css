@@ -102,17 +102,18 @@ body, html {
 /* Queue container */
 .queue {
     width: 100%;
-    max-width: 250px;
+    max-width: 300px; /* Ensure it doesn't exceed this width */
     padding: 20px;
-    height: 100vh;
-    overflow-y: auto;
+    height: 100vh; /* Full height */
+    overflow-y: auto; /* Enable scrolling when overflowing */
     position: fixed;
     right: 0;
     top: 0;
-    box-shadow: -4px 0 15px rgba(0, 0, 0, 0.2); /* Enhanced shadow */
+    box-shadow: -4px 0 20px rgba(0, 0, 0, 0.3); /* Enhanced shadow */
     display: flex;
-    flex-direction: column;
+    flex-direction: column; /* Stack items vertically */
     z-index: 10; /* Ensure it's above other content */
+    background: linear-gradient(135deg, #f9f9f9 30%, #e2e2e2 100%); /* Gradient background for depth */
 }
 
 /* Queue title */
@@ -120,33 +121,34 @@ body, html {
     text-align: center;
     margin-top: 0;
     color: #333;
-    font-size: 32px;
+    font-size: 28px; /* Slightly smaller for a cleaner look */
     font-weight: bold;
     font-family: 'Noto Sans JP', sans-serif; /* Anime-inspired font */
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Subtle shadow for better readability */
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow for better readability */
     margin-bottom: 20px; /* Space between title and items */
 }
 
 /* Queue item styling */
 .queue-item {
     position: relative;
-    margin-bottom: 20px;
-    padding: 15px;
+    margin-bottom: 15px; /* Space between items */
+    padding: 15px; /* Padding for queue items */
     border: 2px solid #ff6f61; /* Accent border color */
-    border-radius: 20px; /* More rounded corners */
-    background: #ffffff;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2); /* Enhanced shadow */
-    transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
-    overflow: hidden;
+    border-radius: 15px; /* Rounded corners */
+    background: #ffffff; /* Clean white background */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); /* Enhanced shadow for depth */
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Slightly faster transition */
     animation: fadeIn 0.5s ease-out; /* Fade-in animation for items */
+    flex: 0 1 auto; /* Allow items to grow and shrink based on their content */
 }
 
 /* Queue item image */
 .queue-item img {
-    max-width: 100%;
-    border-radius: 20px; /* Rounded corners */
+    max-width: 100%; /* Make the image fill the width */
+    border-radius: 10px; /* Rounded corners */
     margin-top: 10px;
-    transition: transform 0.4s ease-in-out;
+    object-fit: cover; /* Ensures image maintains aspect ratio */
+    transition: transform 0.3s ease-in-out; /* Smooth transition for hover effect */
 }
 
 .queue-item img:hover {
@@ -156,9 +158,9 @@ body, html {
 /* Image container */
 .image-container {
     position: relative;
-    display: inline-block;
+    display: block; /* Changed to block for full width */
     overflow: hidden;
-    border-radius: 20px; /* Rounded corners */
+    border-radius: 10px; /* Rounded corners */
 }
 
 /* Fade-in animation for queue items */
@@ -173,13 +175,12 @@ body, html {
     }
 }
 
-
 /* Result image */
 .result-image {
     display: block;
     max-width: 100%;
     height: auto;
-    border-radius: 15px; /* Rounded corners */
+    border-radius: 10px; /* Rounded corners */
 }
 
 /* Download overlay */
@@ -194,17 +195,30 @@ body, html {
     justify-content: center;
     opacity: 0;
     transition: opacity 0.3s ease, visibility 0.3s ease;
-    background: rgba(0, 0, 0, 0.6); /* Darker overlay for better contrast */
-    border-radius: 15px; /* Rounded corners */
+    background: rgba(0, 0, 0, 0.7); /* Darker overlay for better contrast */
+    border-radius: 10px; /* Rounded corners */
     visibility: hidden;
-    margin-top: 10px;
 }
 
-/* Show the overlay on hover */
 .image-container:hover .download-overlay {
-    opacity: 1;
-    visibility: visible;
+    opacity: 1; /* Show overlay on hover */
+    visibility: visible; /* Ensure it is visible */
 }
+
+/* Scrollbar styles for the queue */
+.queue::-webkit-scrollbar {
+    width: 8px; /* Width of the scrollbar */
+}
+
+.queue::-webkit-scrollbar-thumb {
+    background: #000000; /* Color of the scrollbar */
+    border-radius: 4px; /* Rounded corners for scrollbar */
+}
+
+.queue::-webkit-scrollbar-thumb:hover {
+    background: #0056b3; /* Darker color on hover */
+}
+
 
 /* Download button styles */
 .download-button {
@@ -374,3 +388,43 @@ body, html {
     z-index: 1000;
     animation: fadeIn 3s ease-in-out, fadeOut 3s ease-in-out forwards;
 }
+
+.image-count-section {
+    display: flex;
+    align-items: center; /* Align items vertically centered */
+    gap: 20px; /* Space between each element */
+    margin-bottom: 20px; /* Space below the section */
+}
+
+.image-count-section label {
+    font-weight: bold; /* Make labels bold */
+    margin-right: 5px; /* Space between label and input */
+    font-size: 14px; /* Font size for labels */
+}
+
+.image-count-section input[type="number"],
+.image-count-section select {
+    padding: 8px; /* Padding for inputs and select */
+    border: 1px solid #ccc; /* Border for inputs and select */
+    border-radius: 4px; /* Rounded corners */
+    font-size: 14px; /* Font size for inputs */
+}
+
+.image-count-section select {
+    cursor: pointer; /* Pointer cursor for select dropdown */
+    background-color: #f8f8f8; /* Light background for select */
+    width: 150px
+}
+
+/* Optional: Add hover effect for the select */
+.image-count-section select:hover {
+    background-color: #e8e8e8; /* Darker background on hover */
+}
+
+/* Optional: Add focus effect for inputs and select */
+.image-count-section input[type="number"]:focus,
+.image-count-section select:focus {
+    border-color: #007bff; /* Change border color on focus */
+    outline: none; /* Remove default outline */
+}
+

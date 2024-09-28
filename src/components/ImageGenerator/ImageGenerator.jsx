@@ -11,6 +11,7 @@ const CHECK_STATUS_URL = `${CORS_PROXY}api/v2/generate/check`;
 const RETRIEVE_STATUS_URL = `${CORS_PROXY}api/v2/generate/status`;
 
 const MAX_QUEUE_SIZE = 5; // Maximum number of images in the queue
+const MAX_IMAGES_PER_PROMPT = 5; // Maximum number of images a user can request per prompt
 
 const ImageGenerator = ({ loras }) => {
     const [prompt, setPrompt] = useState(localStorage.getItem('prompt') || '');
@@ -19,29 +20,32 @@ const ImageGenerator = ({ loras }) => {
     const [notification, setNotification] = useState('');
     const [canDownloadAll, setCanDownloadAll] = useState(false); // Track if download all button should be enabled
     const [images, setImages] = useState([]); // Array of image URLs
+    const [imageCount, setImageCount] = useState(1); // Number of images to generate
+    const [aspectRatio, setAspectRatio] = useState('square'); // Default to square
+
 
     const [characters, setCharacters] = useState([]);
     const [tags, setTags] = useState([]);
 
-useEffect(() => {
-    const fetchFiles = async () => {
-        try {
-            const characterResponse = await fetch('/anime_characters.txt');
-            const characterText = await characterResponse.text();
-            // Use the whole line for characters
-            setCharacters(characterText.split('\n').filter(line => line.trim() !== ''));
+    useEffect(() => {
+        const fetchFiles = async () => {
+            try {
+                const characterResponse = await fetch('/anime_characters.txt');
+                const characterText = await characterResponse.text();
+                // Use the whole line for characters
+                setCharacters(characterText.split('\n').filter(line => line.trim() !== ''));
 
-            const tagResponse = await fetch('/tags.txt');
-            const tagText = await tagResponse.text();
-            // Extract the first word from each line for tags
-            setTags(tagText.split('\n').map(line => line.split(/\s+/)[0]).filter(word => word));
-        } catch (error) {
-            console.error('Error loading files:', error);
-        }
-    };
+                const tagResponse = await fetch('/tags.txt');
+                const tagText = await tagResponse.text();
+                // Extract the first word from each line for tags
+                setTags(tagText.split('\n').map(line => line.split(/\s+/)[0]).filter(word => word));
+            } catch (error) {
+                console.error('Error loading files:', error);
+            }
+        };
 
-    fetchFiles();
-}, []);
+        fetchFiles();
+    }, []);
 
     let presetLoras = [
         {
@@ -95,8 +99,8 @@ useEffect(() => {
         // Count only processing items
         const processingCount = queue.filter(item => !item.done && !item.cancelled).length;
 
-        if (processingCount >= MAX_QUEUE_SIZE) {
-            setNotification('Queue is full. Please wait until some images are processed before adding more.');
+        if (processingCount + imageCount > MAX_QUEUE_SIZE) {
+            setNotification(`Queue is full. You can only add ${MAX_QUEUE_SIZE - processingCount} more image(s) to the queue.`);
             return;
         }
 
@@ -105,59 +109,88 @@ useEffect(() => {
         const negativePrompt = 'score_6, score_5, score_4, simple background, 3d, realistic, watermark';
         const combinedPrompt = `${hiddenPrompt} ${prompt || 'a cute catgirl'} ### ${negativePrompt}`;
 
+        // Sleep function to create a delay
+        const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+        let width, height;
+
+        switch (aspectRatio) {
+            case 'portrait':
+                width = 768; // Example width for portrait
+                height = 1024; // Example height for portrait
+                break;
+            case 'landscape':
+                width = 1024; // Example width for landscape
+                height = 768; // Example height for landscape
+                break;
+            case 'square':
+            default:
+                width = 1024; // Example width for square
+                height = 1024; // Example height for square
+                break;
+        }
+
         try {
-            const response = await axios.post(
-                INITIATE_URL,
-                {
-                    "prompt": combinedPrompt,
-                    "params": {
-                        "cfg_scale": 5,
-                        "seed": "",
-                        "sampler_name": "k_dpmpp_sde",
-                        "height": 1024,
-                        "width": 1024,
-                        "post_processing": ["RealESRGAN_x4plus_anime_6B"],
-                        "steps": 25,
-                        "tiling": false,
-                        "karras": true,
-                        "hires_fix": true,
-                        "clip_skip": 2,
-                        "n": 1,
-                        "loras": combinedLoras,
+            // Generate the specified number of images with different seeds
+            for (let i = 0; i < imageCount; i++) {
+                // Wait for 1 second (1000 milliseconds) before initiating the next generation
+                await sleep(100);
+                const response = await axios.post(
+                    INITIATE_URL,
+                    {
+                        "prompt": combinedPrompt,
+                        "params": {
+                            "cfg_scale": 7,
+                            "seed": '',
+                            "sampler_name": "k_euler_a",
+                            "height": height,
+                            "width": width,
+                            "post_processing": ["RealESRGAN_x4plus_anime_6B"],
+                            "steps": 30,
+                            "tiling": false,
+                            "karras": true,
+                            "hires_fix": true,
+                            "clip_skip": 2,
+                            "n": 1,
+                            "loras": combinedLoras,
+                        },
+                        "nsfw": true,
+                        "censor_nsfw": false,
+                        "trusted_workers": true,
+                        "models": [
+                            "Pony Diffusion XL"
+                        ],
+                        "replacement_filter": false,
                     },
-                    "nsfw": true,
-                    "censor_nsfw": false,
-                    "trusted_workers": true,
-                    "models": [
-                        "Pony Diffusion XL"
-                    ],
-                    "replacement_filter": false,
-                },
-                {
-                    headers: {
-                        'Client-Agent': 'unknown:0:unknown',
-                        'apikey': import.meta.env.VITE_API_KEY,
-                        'Content-Type': 'application/json',
+                    {
+                        headers: {
+                            'Client-Agent': 'unknown:0:unknown',
+                            'apikey': import.meta.env.VITE_API_KEY,
+                            'Content-Type': 'application/json',
+                        }
                     }
-                }
-            );
+                );
 
-            const newItem = {
-                id: response.data.id,
-                prompt: prompt || 'a cute catgirl',
-                status: 'Generation started. Checking status...',
-                eta: response.data.wait_time || 'Calculating..',
-                imageUrl: '',
-                done: false,
-                cancelled: false,
-                isCheckingStatus: false,
-                lastChecked: Date.now(),
-                checkInterval: 10000 // Initial check interval 10 seconds
-            };
+                const newItem = {
+                    id: response.data.id,
+                    prompt: prompt || 'a cute catgirl',
+                    status: 'Generation started. Checking status...',
+                    eta: response.data.wait_time || 'Calculating...', // Fallback to 'Calculating...' if no wait time
+                    imageUrl: '',
+                    done: false,
+                    cancelled: false,
+                    isCheckingStatus: false,
+                    lastChecked: Date.now(),
+                    checkInterval: 10000, // Initial check interval 10 seconds
+                    seed: ''
+                };
 
-            setQueue(prevQueue => [...prevQueue, newItem]);
+
+                setQueue(prevQueue => [...prevQueue, newItem]);
+            }
+
             setLoading(false);
-            setNotification('Image generation initiated.');
+            setNotification(`${imageCount} image(s) generation initiated.`);
         } catch (error) {
             console.error('Error initiating generation:', error.response ? error.response.data : error.message);
             setLoading(false);
@@ -357,39 +390,69 @@ useEffect(() => {
 
     const injectRandomCharacter = () => {
         if (characters.length === 0) return;
-    
+
         const randomCharacter = characters[Math.floor(Math.random() * characters.length)];
         setPrompt(prevPrompt => `${prevPrompt} ${randomCharacter}`);
     };
-    
+
     const injectRandomTag = () => {
         if (tags.length === 0) return;
-    
+
         const randomTag = tags[Math.floor(Math.random() * tags.length)];
         setPrompt(prevPrompt => `${prevPrompt} ${randomTag},`);
     };
-    
+
+    const handleImageCountChange = (e) => {
+        const value = parseInt(e.target.value, 10);
+        if (value >= 1 && value <= MAX_IMAGES_PER_PROMPT) {
+            setImageCount(value);
+        }
+    };
 
     return (
         <div className="container">
             <div className="content">
-            <div className="generator">
-    <h1>Anime Image Generator</h1>
-    <textarea
-        value={prompt}
-        onChange={(e) => setPrompt(e.target.value)}
-        placeholder="Enter your prompt here..."
-        rows="4"
-        cols="50"
-    />
-    <div className="button-container">
-        <button onClick={initiateImageGeneration} className="generate-button" disabled={loading}>
-            {loading ? <div className="loader" /> : 'Generate Image'}
-        </button>
-        <button onClick={injectRandomCharacter} className="inject-button">Add Random Character</button>
-        <button onClick={injectRandomTag} className="inject-button">Add Random Tag</button>
-    </div>
-</div>
+                <div className="generator">
+                    <h1>Anime Image Generator</h1>
+                    <textarea
+                        value={prompt}
+                        onChange={(e) => setPrompt(e.target.value)}
+                        placeholder="Enter your prompt here..."
+                        rows="4"
+                        cols="50"
+                    />
+
+                    <div className="image-count-section">
+                        <label htmlFor="imageCount">Number of Images:</label>
+                        <input
+                            type="number"
+                            id="imageCount"
+                            value={imageCount}
+                            onChange={handleImageCountChange}
+                            min="1"
+                            max={MAX_IMAGES_PER_PROMPT}
+                        />
+                        <label htmlFor="aspectRatio">Aspect Ratio:</label>
+                        <select
+                            id="aspectRatio"
+                            value={aspectRatio}
+                            onChange={(e) => setAspectRatio(e.target.value)}
+                        >
+                            <option value="square">Square</option>
+                            <option value="portrait">Portrait</option>
+                            <option value="landscape">Landscape</option>
+                        </select>
+                    </div>
+
+
+                    <div className="button-container">
+                        <button onClick={initiateImageGeneration} className="generate-button" disabled={loading}>
+                            {loading ? <div className="loader" /> : 'Generate Image'}
+                        </button>
+                        <button onClick={injectRandomCharacter} className="inject-button">Add Random Character</button>
+                        <button onClick={injectRandomTag} className="inject-button">Add Random Tag</button>
+                    </div>
+                </div>
 
             </div>
             <div className="queue">
