@@ -102,7 +102,7 @@ body, html {
 /* Queue container */
 .queue {
     width: 100%;
-    max-width: 300px; /* Ensure it doesn't exceed this width */
+    max-width: 250px; /* Ensure it doesn't exceed this width */
     padding: 20px;
     height: 100vh; /* Full height */
     overflow-y: auto; /* Enable scrolling when overflowing */
