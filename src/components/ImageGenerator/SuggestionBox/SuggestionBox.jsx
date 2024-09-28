@@ -96,7 +96,7 @@ const SuggestionBox = () => {
     return (
         <div className="suggestion-container">
             <button className="toggle-button" onClick={() => setIsOpen(prev => !prev)}>
-                {isOpen ? 'Hide Suggestions' : 'Add Suggestions'}
+                {isOpen ? 'Hide' : 'Add Suggestions'}
             </button>
             {isOpen && (
                 <div className="suggestion-box">
@@ -109,7 +109,7 @@ const SuggestionBox = () => {
                             rows="4"
                             required
                         />
-                        <button type="submit" disabled={isSending}>Send Suggestion</button>
+                        <button type="submit" disabled={isSending}>Send</button>
                     </form>
                     {status && <p className="status-message">{status}</p>} {/* Display status message */}
                 </div>
