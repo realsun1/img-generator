@@ -456,7 +456,7 @@ const ImageGenerator = ({ loras }) => {
                             <div className="help-icon">
                                 ?
                                 <div className="help-text">
-                                    Toggle NSFW content. Default is off for safety.
+                                    Toggle NSFW content.
                                 </div>
                             </div>
                         </div>
