@@ -160,7 +160,7 @@ const ImageGenerator = ({ loras }) => {
                         "models": [
                             "Pony Diffusion XL"
                         ],
-                        "replacement_filter": false,
+                        "replacement_filter": true,
                     },
                     {
                         headers: {
