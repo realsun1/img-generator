@@ -140,7 +140,14 @@ body, html {
     transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Slightly faster transition */
     animation: fadeIn 0.5s ease-out; /* Fade-in animation for items */
     flex: 0 1 auto; /* Allow items to grow and shrink based on their content */
+    
+    /* Overflow handling */
+    overflow-wrap: break-word; /* Break long words */
+    word-wrap: break-word; /* Legacy support for older browsers */
+    word-break: break-word; /* Break long text */
+    white-space: normal; /* Allow the text to wrap to the next line */
 }
+
 
 /* Queue item image */
 .queue-item img {
@@ -426,5 +433,77 @@ body, html {
 .image-count-section select:focus {
     border-color: #007bff; /* Change border color on focus */
     outline: none; /* Remove default outline */
+}
+
+.nsfw-toggle-container {
+    display: inline-flex;
+    align-items: center;
+    position: relative;
+}
+
+.nsfw-toggle {
+    padding: 5px 10px;
+    background-color: #e0e0e0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.nsfw-toggle.enabled {
+    background-color: #ff6666;
+    color: white;
+}
+
+.nsfw-toggle.disabled {
+    background-color: #a6a6a6;
+    color: white;
+}
+
+.nsfw-toggle:hover {
+    background-color: #ff3333;
+}
+
+.help-icon {
+    font-size: 12px;
+    background-color: #999;
+    color: white;
+    padding: 2px 5px;
+    border-radius: 50%;
+    margin-left: 8px;
+    cursor: pointer;
+    position: relative;
+}
+
+.help-icon:hover .help-text {
+    display: block;
+}
+
+.help-text {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+    white-space: nowrap;
+    font-size: 12px;
+    z-index: 10;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.help-icon:hover .help-text::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent #333 transparent;
 }
 

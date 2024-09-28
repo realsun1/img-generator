@@ -1,0 +1,63 @@
+.suggestion-container {
+    position: fixed; /* Use fixed to stay in place when scrolling */
+    bottom: 10px; /* Space from the bottom */
+    left: 10px; /* Space from the left */
+    z-index: 1000; /* Ensure it stays on top */
+}
+
+.toggle-button {
+    background-color: #acacac;
+    color: white;
+    border: none;
+    padding: 5px 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 10px; /* Space below the button */
+}
+
+.toggle-button:hover {
+    background-color: #ff4f41;
+}
+
+.suggestion-box {
+    margin-top: 10px; /* Space between button and box */
+    padding: 5px;
+    border: 2px solid #ff6f61;
+    border-radius: 10px;
+    background-color: #fff8f0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.suggestion-box h3 {
+    font-size: 18px;
+    margin-bottom: 15px;
+    color: #ff6f61;
+}
+
+.suggestion-box textarea {
+    width: 90%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.suggestion-box button {
+    background-color: #ff6f61;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.suggestion-box button:hover {
+    background-color: #ff4f41;
+}
+
+.status-message {
+    margin-top: 10px;
+    font-size: 14px;
+    color: green;
+}

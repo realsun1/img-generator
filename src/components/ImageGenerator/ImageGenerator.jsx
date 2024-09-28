@@ -22,7 +22,7 @@ const ImageGenerator = ({ loras }) => {
     const [images, setImages] = useState([]); // Array of image URLs
     const [imageCount, setImageCount] = useState(1); // Number of images to generate
     const [aspectRatio, setAspectRatio] = useState('square'); // Default to square
-
+    const [nsfw, setNsfw] = useState(false); // NSFW is false by default
 
     const [characters, setCharacters] = useState([]);
     const [tags, setTags] = useState([]);
@@ -154,7 +154,7 @@ const ImageGenerator = ({ loras }) => {
                             "n": 1,
                             "loras": combinedLoras,
                         },
-                        "nsfw": true,
+                        "nsfw": nsfw,
                         "censor_nsfw": false,
                         "trusted_workers": true,
                         "models": [
@@ -442,7 +442,26 @@ const ImageGenerator = ({ loras }) => {
                             <option value="portrait">Portrait</option>
                             <option value="landscape">Landscape</option>
                         </select>
+
+                        {/* Add the NSFW toggle button */}
+                        <label htmlFor="nsfwToggle">NSFW:</label>
+                        <div className="nsfw-toggle-container">
+                            <button
+                                className={`nsfw-toggle ${nsfw ? 'enabled' : 'disabled'}`}
+                                onClick={() => setNsfw(prevNsfw => !prevNsfw)}
+                            >
+                                {nsfw ? 'Enabled' : 'Disabled'}
+                            </button>
+                            {/* Help icon */}
+                            <div className="help-icon">
+                                ?
+                                <div className="help-text">
+                                    Toggle NSFW content. Default is off for safety.
+                                </div>
+                            </div>
+                        </div>
                     </div>
+
 
 
                     <div className="button-container">
