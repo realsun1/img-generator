@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import emailjs from 'emailjs-com';
 import './SuggestionBox.css';
 
-const SUGGESTION_COOLDOWN = 500 * 1000; // 500 seconds in milliseconds
+const SUGGESTION_COOLDOWN = 0; // 500 seconds in milliseconds
 
 const SuggestionBox = () => {
     const [suggestion, setSuggestion] = useState('');
+    const [contact, setContact] = useState(''); // State for contact input
     const [status, setStatus] = useState('');
     const [isOpen, setIsOpen] = useState(false); // State for managing visibility
     const [isSending, setIsSending] = useState(false); // Track sending status
@@ -48,7 +49,6 @@ const SuggestionBox = () => {
             return; // Early return if in cooldown
         }
         
-
         // Check if suggestion is empty
         if (!suggestion.trim()) {
             setStatus('Please enter a suggestion.');
@@ -59,13 +59,17 @@ const SuggestionBox = () => {
         emailjs.send(
             'service_iv44gyg', // Replace with your service ID
             'template_goiv20q', // Replace with your template ID
-            { message: suggestion }, // This will replace the variables in your email template
+            { 
+                message: suggestion,
+                contact: contact // Include contact information in the template
+            },
             'hCFRUZ7VPdRvnceh2' // Replace with your user ID
         )
         .then((result) => {
             console.log(result.text);
             setSuggestion(''); // Clear the textarea
-            setStatus('Suggestion sent successfully!');
+            setContact(''); // Clear the contact input
+            setStatus('Message sent successfully!');
 
             // Record the time of the suggestion
             const currentTime = Date.now();
@@ -96,18 +100,24 @@ const SuggestionBox = () => {
     return (
         <div className="suggestion-container">
             <button className="toggle-button" onClick={() => setIsOpen(prev => !prev)}>
-                {isOpen ? 'Hide' : 'Add Suggestions'}
+                {isOpen ? 'Hide' : 'Send Message'}
             </button>
             {isOpen && (
                 <div className="suggestion-box">
-                    <h3>Have a suggestion? Let us know!</h3>
+                    <h3>Feedback, bugs or suggestions? Let us know!</h3>
                     <form onSubmit={sendEmail}>
                         <textarea
                             value={suggestion}
                             onChange={(e) => setSuggestion(e.target.value)}
-                            placeholder="Type your suggestion here..."
+                            placeholder="Type your message here..."
                             rows="4"
                             required
+                        />
+                        <input
+                            type="text"
+                            value={contact}
+                            onChange={(e) => setContact(e.target.value)}
+                            placeholder="Optional: Your contact (Discord, email, etc..)"
                         />
                         <button type="submit" disabled={isSending}>Send</button>
                     </form>

@@ -170,6 +170,8 @@ const ImageGenerator = ({ loras }) => {
                         }
                     }
                 );
+                 // Log the request body to the console
+        // console.log("Sending request:", JSON.stringify(response, null, 2));
 
                 const newItem = {
                     id: response.data.id,

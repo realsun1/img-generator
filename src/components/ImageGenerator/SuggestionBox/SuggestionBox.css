@@ -50,6 +50,7 @@
     padding: 10px 15px;
     border-radius: 5px;
     cursor: pointer;
+    margin-left: 20px;
 }
 
 .suggestion-box button:hover {
@@ -60,4 +61,14 @@
     margin-top: 10px;
     font-size: 14px;
     color: green;
+}
+
+input[type="text"] {
+    width: 100%; /* Full width */
+    max-width: 420px; /* Set a maximum width */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    margin-bottom: 10px; /* Spacing between elements */
 }
